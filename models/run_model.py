@@ -3,6 +3,8 @@ import numpy as np
 from keras.models import Sequential
 from keras.layers import GlobalAveragePooling2D, Conv2D, Dropout, GlobalAveragePooling2D
 from keras.layers import Dense, Sequential
+from keras.callbacks import ModelCheckpoint
+import sys
 
 def load_model(algo_type="Resnet50"):
 	if algo_type == 'Resnet50':
@@ -34,16 +36,23 @@ def compile_model(model):
 	return model
 
 def train_model(model, algo_type):
-	checkpointer = ModelCheckpoint(filepath='saved_models/weights.best.{}.hdf5'.format(algo_type, 
+	checkpointer = ModelCheckpoint(filepath='saved_models/weights.best.{}.hdf5'.format(algo_type), 
 		verbose=1, save_best_only=True)
 
-	Resnet50_model.fit(train_Resnet50, train_targets, 
+	model.fit(train, train_targets, 
 		validation_data=(valid_Resnet50, valid_targets),
 		epochs=20, batch_size=20, callbacks=[checkpointer], verbose=1)
+	return model
 
-if __name__ == '__main__':
-	# Add in logic here
-	train, valid, test = load_model()
+def get_model(algo_type, train=False):
+	train, valid, test, data_shape = load_model()
+	model = build_model(data_shape)
+	model = compile_model(model)
+	if train:
+		model = train_model(model, algo_type)
+	saved_model = 'saved_models/weights.best.{}.hdf5'.format(algo_type)
+	model.load_weights(saved_model)
+	return model
 
 
 
