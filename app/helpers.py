@@ -1,7 +1,9 @@
 # helpers
-from keras.preprocessing import image                  
+from keras.preprocessing import image
+from keras.applications.resnet50 import preprocess_input, ResNet50          
 from tqdm import tqdm
 import cv2
+import numpy as np
 
 def path_to_tensor(img_path):
     # loads RGB image as PIL.Image.Image type
@@ -15,10 +17,10 @@ def paths_to_tensor(img_paths):
     list_of_tensors = [path_to_tensor(img_path) for img_path in tqdm(img_paths)]
     return np.vstack(list_of_tensors)
 
-def ResNet50_predict_labels(img_path):
-    # returns prediction vector for image located at img_path
-    img = preprocess_input(path_to_tensor(img_path))
-    return np.argmax(ResNet50_model.predict(img))
+def ResNet50_predict_labels(img_path,model):
+	Resnet50_model = ResNet50(weights='imagenet')
+	img = preprocess_input(path_to_tensor(img_path))
+	return np.argmax(Resnet50_model.predict(img))
 
 def face_detector(img_path):
     face_cascade = cv2.CascadeClassifier('../data/haarcascades/haarcascade_frontalface_alt.xml')
@@ -27,8 +29,8 @@ def face_detector(img_path):
     faces = face_cascade.detectMultiScale(gray)
     return len(faces) > 0
 
-def dog_detector(img_path):
-    prediction = ResNet50_predict_labels(img_path)
+def dog_detector(img_path, model):
+    prediction = ResNet50_predict_labels(img_path, model)
     return ((prediction <= 268) & (prediction >= 151)) 
 
 def extract_VGG16(tensor):
