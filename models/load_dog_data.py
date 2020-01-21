@@ -1,3 +1,5 @@
+# This file is pretty much not used right now because we're missing the necessary training data!
+
 from sklearn.datasets import load_files       
 from keras.utils import np_utils
 import numpy as np
@@ -6,6 +8,8 @@ from PIL import ImageFile
 
 # define function to load train, test, and validation datasets
 def load_dataset(path):
+	'''
+	'''
     data = load_files(path)
     dog_files = np.array(data['filenames'])
     dog_targets = np_utils.to_categorical(np.array(data['target']), 133)
