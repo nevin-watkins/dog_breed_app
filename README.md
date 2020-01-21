@@ -7,7 +7,7 @@ This codebase utilizes a few datasets of labeled dog images in order to train a 
 ### Important successes:
 1. Build a pipeline that takes in user provided images and returns the predicted breed associated with that image.
 2. Intrinsic to this pipeline is a Sequential CNN model built using Keras.
-3. The accuracy of the algorithm is over 80% accurate, which is pretty great considering how hard it is for humans to tell the breeds of dogs sometimes!
+3. The accuracy of the algorithm is 80% accurate on the test set, which is pretty great considering how hard it is for humans to tell the breeds of dogs sometimes!
 
 ### Notes
 In order to run this package you will need to configure a few things!
@@ -27,3 +27,14 @@ In order to run this package you will need to configure a few things!
 1. By downloading the full package as listed you should be able to clone it.
 2. Open a Terminal or Commandline window and get to the app directory
 3. Run 'python run.py' in the command line and it should render at '127.0.0.1:5000'
+
+### Metrics
+If you would like to know more about the metrics associated with this project please refer to the jupyternotebook in the outerdirectory.
+Metrics of note:
+1. Accuracy of Algorithm on Test Set: 79.95%
+2. About the training set:
+-There are 6680 training dog images.
+-There are 835 validation dog images.
+-There are 836 test dog images.
+3. Number of Epochs Run: 20
+4. Best epoch was from Epoch 3: This is the model that we import to predict breeds. On that saved model these are the following metrics: loss: 0.3491 - acc: 0.8920, val_loss improved from 0.70242 to 0.64562
