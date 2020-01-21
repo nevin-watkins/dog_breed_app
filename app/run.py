@@ -34,6 +34,11 @@ def predict_breed(img_path, model):
     return dog_names[np.argmax(predicted_vector)]
 
 def get_dog_info(img_path, model):
+    '''
+    Input image path and CNN model
+
+    Output string about the said image using the models
+    '''
     dog_name = predict_breed(img_path, model).split('.')[1]
     if dog_detector(img_path, model) and face_detector(img_path):
         title = "We can't tell if this is a dog or a human, but either way it looks like a {}".format(dog_name)
@@ -45,17 +50,26 @@ def get_dog_info(img_path, model):
         title = "We couldn't seem to find humans or dogs here but it looks like a {}".format(dog_name)
     return title
 
-DOG_FOLDER = os.path.join('static/', 'images/')
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = DOG_FOLDER
+
+UPLOAD_FOLDER = "static/images/"
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+ALLOWED_EXTENSIONS = {'txt', 'png', 'jpg', 'jpeg', 'gif'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit(".",1)[1].lower() in  ALLOWED_EXTENSIONS
+
+default_image_path = os.path.join(UPLOAD_FOLDER,os.listdir(UPLOAD_FOLDER)[0])
+#accuracy = 
+print(default_image_path)
 # index webpage displays cool visuals and receives user input text for model
 @app.route('/')
 @app.route('/index')
 def index():
     K.clear_session()
     model = get_model(algo_type="Resnet50")
-    default_image = os.path.join(DOG_FOLDER,os.listdir(DOG_FOLDER)[0])
+    default_image = default_image_path
     message = get_dog_info(default_image, model)
     K.clear_session()
     # render web page with plotly graphs
@@ -64,16 +78,16 @@ def index():
 @app.route('/upload_image', methods=['GET', 'POST'])
 def upload_image():
     if request.method == 'GET':
-        default_image = os.path.join(DOG_FOLDER,os.listdir(DOG_FOLDER)[0])
-        image_file = default_image
+        image_file = default_image_path
     if request.method == 'POST':
         f = request.files['file']
-        f.save(secure_filename(os.path.join(DOG_FOLDER, f.filename)))
+        saved_filename = UPLOAD_FOLDER+secure_filename(f.filename)
+        f.save(saved_filename)
         print(f.filename)
-        image_file = os.path.join(DOG_FOLDER,f.filename)
+        image_file = saved_filename
     K.clear_session()
     model = get_model(algo_type="Resnet50")
-    message = get_dog_info(image_file, model)
+    message = get_dog_info(image_file, model).replace("_", " ")
     K.clear_session()
     # render web page with plotly graphs
     return render_template('master.html', image_file=image_file, message=message)
@@ -83,7 +97,7 @@ def upload_image():
 def image_link():
     # save user input in query
     if request.method == 'GET':
-        image_file = os.path.join(DOG_FOLDER,os.listdir(DOG_FOLDER)[0])
+        image_file = default_image_path
     if request.method == 'POST':
         image_file = request.args.get('image_link') 
     K.clear_session()
