@@ -31,7 +31,7 @@ In order to run this package you will need to configure a few things!
 ### Metrics
 If you would like to know more about the metrics associated with this project please refer to the jupyternotebook in the outerdirectory.
 Metrics of note:
-1. Accuracy of Algorithm on Test Set: 79.95%
+1. Accuracy of Algorithm on Test Set: 79.30% (in my last run)
 2. About the training set:
 -There are 6680 training dog images.
 -There are 835 validation dog images.
