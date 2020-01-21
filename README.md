@@ -38,3 +38,27 @@ Metrics of note:
 -There are 836 test dog images.
 3. Number of Epochs Run: 20
 4. Best epoch was from Epoch 3: This is the model that we import to predict breeds. On that saved model these are the following metrics: loss: 0.3491 - acc: 0.8920, val_loss improved from 0.70242 to 0.64562
+
+## Methodology
+### Preprocessing the Data and Initial Data Investigation
+For preprocessing the data I followed this path:
+1. Import the data by using sklearn datasets load_files method. The dataset was provided in numpy arrays so using this library is helpful.
+2. We then converted the target variables (aka our dog breeds) into an array using the to_categorical method within keras.utils
+3. Our dataset was already split for us between valid, test and training data, so we pulled those datasets in as necessary. In the future, I think it would be best to rearrange these datasets so that I could make sure an avoid overfitting.
+4. We pulled out the dog names associated from the data (133 in all).
+5. I also pulled in pictures of humans for testing my human algorithm.
+
+Development of face detector and dog detector:
+1. There is a wonderful library that Udacity provided us called haarcascades this is used for detecting faces.
+2. I then tested this against our datasets
+
+### Implementation
+Document machine learning pipeline and why I chose the one I did
+I ended up using a relatively simple Keras Resnet50 pipeline. I initially trained my algorithm using the VGG19 dataset but it overfit to the 
+
+### Process Refinement
+I tried the following four packages in the Udacity provided workplace that is connected to a much faster GPU:
+1. locally to test out the accuracy given the simple model I wanted to use.
+I found that the Resnet50 algorithm was closest to what I wanted but I also could have spent more time fine tuning my pipeline then I had time for. Going forw
+
+
