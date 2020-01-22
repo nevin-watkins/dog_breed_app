@@ -31,17 +31,21 @@ In order to run this package you will need to configure a few things!
 ### Metrics
 If you would like to know more about the metrics associated with this project please refer to the jupyternotebook in the outerdirectory.
 Metrics of note:
-1. Accuracy of Algorithm on Test Set: 79.30% (in my last run)
+1. Accuracy of Algorithm on Test Set: 82.06%
 2. About the training set:
 -There are 6680 training dog images.
 -There are 835 validation dog images.
 -There are 836 test dog images.
 3. Number of Epochs Run: 20
-4. Best epoch was from Epoch 3: This is the model that we import to predict breeds. On that saved model these are the following metrics:    training set: loss: 0.0720 - acc: 0.9871 - precision_m: 0.9902 - f1_m: 0.9860 - recall_m: 0.9820
+4. Best epoch was from Epoch 6: This is the model that we import to predict breeds. On that saved model these are the following metrics:    training set: loss: 0.0720 - acc: 0.9871 - precision_m: 0.9902 - f1_m: 0.9860 - recall_m: 0.9820
   validation_set: val_loss: 0.6168 - val_acc: 0.8240 - val_precision_m: 0.8512 - val_f1_m: 0.8196 - val_recall_m: 0.7916
 5. Using these metrics we see how we're overfitting to our training set, so we would want to tweak the split of our training, test and validation set in order to avoid this overfitting.
 
+![F1 Score](https://raw.githubusercontent.com/nevin-watkins/dog_breed_app/master/app/static/model_images/f1score.png)
 
+![Accuracy](https://raw.githubusercontent.com/nevin-watkins/dog_breed_app/master/app/static/model_images/resnet50_accuracy.png)
+
+![Precision and Recall](https://raw.githubusercontent.com/nevin-watkins/dog_breed_app/master/app/static/model_images/resnet50_precision_recall.png)
 
 #### Why accuracy
 The reason why I chose accuracy in this instance is that it's the easiest for me to comprehend for the goal of this project. The set goal of this project was to improve accuracy above 60%, and that's exactly what I was able to do with a very simple algorithm. It's often best for business purposes to use a simple model and a simple metric. In this instance we accomplished both. Here are some visualizations of the the accuracy, precision, recall and f1 score of the final model.
