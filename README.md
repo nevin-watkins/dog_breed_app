@@ -75,18 +75,20 @@ This piece of the code is relatively simple as a result of two datasets which I 
 
 #### Model building
 I ended up using a relatively simple Keras Sequential Resnet50 pipeline which is as follows:
-Layer (type)                 Output Shape              Param #   
-=================================================================
-global_average_pooling2d_6 ( (None, 2048)              0         
-_________________________________________________________________
-dropout_4 (Dropout)          (None, 2048)              0         
-_________________________________________________________________
-dense_6 (Dense)              (None, 133)               272517    
-=================================================================
-Total params: 272,517
-Trainable params: 272,517
-Non-trainable params: 0
-_________________________________________________________________
+
+
+    Layer (type)                 Output Shape              Param #   
+    =================================================================
+    global_average_pooling2d_6 ( (None, 2048)              0         
+    _________________________________________________________________
+    dropout_4 (Dropout)          (None, 2048)              0         
+    _________________________________________________________________
+    dense_6 (Dense)              (None, 133)               272517    
+    =================================================================
+    Total params: 272,517
+    Trainable params: 272,517
+    Non-trainable params: 0
+    _________________________________________________________________
 
 After running this model, I export the best results into a hd5 for me to use with the flask app later (no need to rerun everytime!).
 
